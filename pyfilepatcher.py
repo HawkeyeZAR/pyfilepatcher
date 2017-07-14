@@ -63,17 +63,20 @@ class PyFilePatcher(Frame):
         LTXT4 = 'Find String: '
         LTXT5 = 'Replace String: '
         LTXT6 = 'Modifying data at file offset: '
+
         label1 = tk.Label(self.m_frame, text=LTXT1 ,bg=lbl_color)
         label1.grid(column=0, row=1, sticky=tk.W)
         label2 = tk.Label(self.m_frame, text=LTXT2 ,bg=lbl_color)
         label2.grid(column=0, row=2, sticky=tk.W)
         label3 = tk.Label(self.m_frame, text=LTXT3 ,bg=lbl_color)
         label3.grid(column=0, row=3, sticky=tk.W)
+
         self.off_txt = tk.StringVar()
         self.off_lbl = tk.Label(self.off_frame, textvariable=self.off_txt,
                                  bg=lbl_color, fg='Dark Blue')
         self.off_lbl.grid(column=0, row=0, sticky=tk.W)
         self.off_txt.set(LTXT6)
+
         label4 = tk.Label(self.m_frame2, text=LTXT4 ,bg=lbl_color)
         label4.grid(column=0, row=0, sticky=tk.W)
         label5 = tk.Label(self.m_frame2, text=LTXT5 ,bg=lbl_color)
@@ -84,16 +87,21 @@ class PyFilePatcher(Frame):
         self.f_entry = ttk.Entry(self.m_frame, width=40, textvariable=self.fn)
         self.f_entry.grid(column=0, row=0, columnspan=2, sticky=tk.E)
         self.f_entry.configure(state='readonly')
+
         self.txt_e = tk.StringVar()
+        self.txt_e.set(0)
         self.off_ent = ttk.Entry(self.m_frame, width=15,
                                  textvariable=self.txt_e)
         self.off_ent.grid(column=1, row=1, sticky=tk.W)
-        self.txt_e.set(0)
+        self.off_ent.configure(state='disabled')
+        self.off_ent.bind("<Return>", lambda x: self.goto_callback())
+        
         self.txt_cur = tk.StringVar()
         self.cur_ent = ttk.Entry(self.m_frame, width=36,
                                  textvariable=self.txt_cur)
         self.cur_ent.grid(column=1, row=2)
         self.cur_ent.configure(state='readonly')
+
         self.txt_new = tk.StringVar()
         self.new_ent = ttk.Entry(self.m_frame, width=36,
                                    textvariable=self.txt_new)
@@ -104,6 +112,7 @@ class PyFilePatcher(Frame):
         self.find_ent = ttk.Entry(self.m_frame2, width=36,
                                    textvariable=self.find_txt)
         self.find_ent.grid(column=1, row=0)
+
         self.rep_txt = tk.StringVar()
         self.rep_ent = ttk.Entry(self.m_frame2, width=36,
                                    textvariable=self.rep_txt)
@@ -114,15 +123,19 @@ class PyFilePatcher(Frame):
                                  command=self.goto_callback)
         self.go_btn.grid(column=1, row=1, sticky=tk.E)
         self.go_btn.configure(state='disabled')
+
         self.upt_btn = ttk.Button(self.m_frame, text='Update Hex',
                                  command=self.update_callback)
         self.upt_btn.grid(column=1, row=4, sticky=tk.E)
         self.upt_btn.configure(state='disabled')
+
         self.file_btn = ttk.Button(self.m_frame, text='File',
                                    command=self.open_callback)
         self.file_btn.grid(column=0, row=0, sticky=tk.W)
+
         self.exit_btn = ttk.Button(self.root, text='Exit', command=self.on_exit)
         self.exit_btn.grid(column=0, row=2, sticky=tk.SE, pady=0)
+
         fr_txt = 'Find & Replace'
         self.repl_btn = ttk.Button(self.m_frame2, text=fr_txt,
                                    command=self.find_callback)
