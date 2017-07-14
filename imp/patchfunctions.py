@@ -31,11 +31,11 @@ class PatchFunctions(object):
         # read written data only
         try:
             with open (self.name, "rb") as f:
-                hex_add = int(self.txt_e.get(), 16) # convert hex to int
+                hex_add = int(self.txt_e.get(), 16)
                 if hex_add < len(f.read()):
                     f.seek(hex_add)
-                    self.read = f.read(16)  # Read 16 bytes
-                    to_hex = binascii.hexlify(self.read) # convert bin to hex
+                    self.read = f.read(16)
+                    to_hex = binascii.hexlify(self.read)
                     self.txt_cur.set(to_hex.upper())
                 else:
                     title_txt = "Out of range"
@@ -69,10 +69,12 @@ class PatchFunctions(object):
                 self.go_btn.configure(state='enabled')
                 self.upt_btn.configure(state='enabled')
                 self.repl_btn.configure(state='enabled')
+                self.off_ent.configure(state='enabled')
             else:
                 self.go_btn.configure(state='disabled')
                 self.upt_btn.configure(state='disabled')
                 self.repl_btn.configure(state='disabled')
+                self.off_ent.configure(state='disabled')
                 self.txt_cur.set('')
                 self.txt_e.set('')
                 self.fn.set('')
@@ -80,6 +82,7 @@ class PatchFunctions(object):
             self.go_btn.configure(state='disabled')
             self.upt_btn.configure(state='disabled')
             self.repl_btn.configure(state='disabled')
+            self.off_ent.configure(state='disabled')
             self.txt_cur.set('')
             self.txt_e.set('')
             self.fn.set('')
@@ -103,7 +106,7 @@ class PatchFunctions(object):
         Update Hex values with new Hex values
         Write new hex data into the patch file
         """
-        to_bin = binascii.unhexlify(self.txt_new.get()) # convert hex to bin
+        to_bin = binascii.unhexlify(self.txt_new.get())
         hex_add = int(self.txt_e.get(), 16)
         try:
             with open (self.backup_file, "r+b") as fb:        
